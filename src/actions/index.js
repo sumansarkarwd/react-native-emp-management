@@ -69,7 +69,7 @@ export const employeeUpdate = ({prop, value}) => {
     },
   };
 };
-export const createEmp = ({name, phone, shift}) => {
+export const createEmp = ({name, phone, shift, photo}) => {
   return dispatch => {
     const {currentUser} = firebase.auth();
     firebase
@@ -79,6 +79,7 @@ export const createEmp = ({name, phone, shift}) => {
         name,
         phone,
         shift,
+        photo,
       })
       .then(() => userCreated(dispatch));
   };

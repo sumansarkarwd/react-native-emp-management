@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Linking} from 'react-native';
+import {View, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {employeeUpdate, empSave} from '../../actions';
 import Card from '../common/Card';
@@ -21,22 +21,6 @@ class EmployeeEdit extends Component {
     });
   };
   textShiftHandler = () => {
-    // Linking.openURL(`sms:${this.props.phone}?body=Foo`);
-    // Comunication.text(
-    //   this.props.phone,
-    //   `Your shift is on: ${this.props.shift}`,
-    // );
-    // sms(this.props.phone, 'Foo').catch(console.error);
-    // SmsAndroid.autoSend(
-    //   this.props.phone,
-    //   'message',
-    //   fail => {
-    //     console.log('Failed with this error: ' + fail);
-    //   },
-    //   success => {
-    //     console.log('SMS sent successfully');
-    //   },
-    // );
     // SendSMS.send(
     //   {
     //     body: `Your shift is on: ${this.props.shift}`,
@@ -55,7 +39,6 @@ class EmployeeEdit extends Component {
     //     );
     //   },
     // );
-    console.log('this.props.phone', this.props.phone);
     
     SmsAndroid.autoSend(
       this.props.phone,
@@ -74,10 +57,15 @@ class EmployeeEdit extends Component {
     });
   };
   render() {
+    console.log('this.props.selectedEmployee', this.props.selectedEmployee);
+    
     return (
       <View style={{paddingTop: 50}}>
         <Card>
           <EmployeeForm {...this.props} />
+          <CardSection>
+            <Image style={{height: 200, width: "100%"}} source={{uri: this.props.selectedEmployee.photo}}/>
+          </CardSection>
           <CardSection>
             <Button
               title="Save"
@@ -98,7 +86,7 @@ class EmployeeEdit extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => {  
   return {
     name: state.employee.name,
     phone: state.employee.phone,

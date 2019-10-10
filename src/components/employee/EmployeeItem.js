@@ -7,6 +7,8 @@ import {Actions} from 'react-native-router-flux';
 
 class EmployeeItem extends Component {
   render() {
+    console.log('this.props.employee', this.props.employee);
+    
     return (
       <TouchableWithoutFeedback
         onPress={() =>

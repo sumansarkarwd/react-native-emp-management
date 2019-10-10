@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   name: '',
   phone: '',
   shift: '',
+  photo: '',
   employees: {},
 };
 
@@ -14,7 +15,7 @@ export default (state = INITIAL_STATE, action) => {
     case EMPLOYEE_CREATE:
       return INITIAL_STATE;
     case EMPLOYEE_SAVED:
-      return {...state, name: '', phone: '', shift: ''};
+      return {...state, name: '', phone: '', shift: '', photo: ''};
     case EMPLOYEE_FETCH:
       return {...state, employees: action.payload};
     default:
