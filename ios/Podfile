@@ -42,6 +42,7 @@ target 'employee_management' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+
   target 'employee_managementTests' do
     inherit! :search_paths
     # Pods for testing
