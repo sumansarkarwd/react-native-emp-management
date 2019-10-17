@@ -38,6 +38,8 @@ target 'employee_management' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'employee_managementTests' do
     inherit! :search_paths
     # Pods for testing

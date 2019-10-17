@@ -16,7 +16,7 @@ const foo = () => {
 export const fetchRandomCocktail = () => {
   return (dispatch) => {
     foo().then(json => {
-        dispatch(randomCocktailLoaded(json.drinks[0].strDrinkThumb));   
+        dispatch(randomCocktailLoaded(json.drinks[0]));   
     });
   }
 }
