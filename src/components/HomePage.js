@@ -1,11 +1,16 @@
 import React, {Component} from "react";
-import {View, Text, StyleSheet, Image} from "react-native";
+import {View, Text, StyleSheet, Image, TextInput} from "react-native";
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {connect} from "react-redux";
-import {fetchRandomCocktail} from "../actions";
+import {fetchRandomCocktail, searchCocktail} from "../actions";
 import LinearGradient from 'react-native-linear-gradient';
 import { Badge } from 'react-native-paper';
 
 class HomePage extends Component {
+    state = {
+        searchText: "",
+    }
+
     componentDidMount() {
         this.props.fetchRandomCocktail();
     }
@@ -27,13 +32,29 @@ class HomePage extends Component {
 
     renderDetails() {
         if(this.props.randomCocktail) {
+            let {randomCocktail} = this.props;
             return (
                 <View>
-                    <Text style={[styles.detailsText, styles.drinkName]}>{this.props.randomCocktail.strDrink}</Text>
-                    <Badge>suman</Badge>
+                    <Text style={[styles.detailsText, styles.drinkName]}>{randomCocktail.strDrink}</Text>
+                    <View style={styles.badgeContainer}>
+                        <Badge style={styles.badge}>
+                            <Text style={styles.badgeText}>{randomCocktail.strIngredient1}</Text>
+                        </Badge>
+                        <Badge style={styles.badge}>
+                            <Text style={styles.badgeText}>{randomCocktail.strIngredient2}</Text>
+                        </Badge>
+                        <Badge style={styles.badge}>
+                            <Text style={styles.badgeText}>{randomCocktail.strIngredient3}</Text>
+                        </Badge>
+                        
+                    </View>
                 </View>
             )
         }
+    }
+
+    search() {
+        this.props.searchCocktail(this.state.searchText);        
     }
 
     render() {
@@ -51,6 +72,18 @@ class HomePage extends Component {
                         </View>
                     </LinearGradient>
                 </View>
+
+                <View style={styles.searchContainer}>
+                    <TextInput 
+                    style={styles.searchInput}
+                    placeholder="Search your Cocktail" 
+                    value = {this.state.searchText}
+                    onChangeText={(val)=> this.setState({searchText: val})}
+                    onSubmitEditing={()=> this.search()}
+                    returnKeyType="search"/>
+                    
+                    <Icon style={styles.iconStyle} name="search" size={30} color="#9e9e9e" />
+                </View>
             </View>
         )
     }
@@ -59,7 +92,7 @@ class HomePage extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "red"
+        // backgroundColor: "red"
     },
     overlayContainer: {
         height: 'auto',
@@ -84,6 +117,38 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: "#FFC107",
     },
+    badgeContainer: {
+        // backgroundColor: "blue",
+        flex: 1,
+        flexDirection: "row",
+        paddingVertical: 5,
+    },
+    badge: {
+        marginRight: 5,
+    },
+    badgeText: {
+        fontSize: 14,
+    },
+    searchContainer: {
+        // width: "100%",
+        // backgroundColor: "red",
+        flexDirection: "row",
+        position: "absolute",
+        top: 0,
+        margin: 20,
+    },
+    searchInput: {
+        flex: 1,
+        backgroundColor: "rgba(255, 255, 255, 0.7)",
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        paddingRight: 57,
+    },
+    iconStyle: {
+        position: 'absolute',
+        right: 20,
+        top: 8,
+    }
 });
 
 const mapStateToProps = state => {
@@ -92,4 +157,7 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, {fetchRandomCocktail})(HomePage);
+export default connect(mapStateToProps, {
+    fetchRandomCocktail,
+    searchCocktail
+})(HomePage);

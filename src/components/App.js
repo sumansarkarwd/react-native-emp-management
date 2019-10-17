@@ -21,7 +21,7 @@ class App extends Component {
 }
 
 store.subscribe(() => {
-  // console.log(store.getState());
+  console.log(store.getState());
 });
 
 export default App;
