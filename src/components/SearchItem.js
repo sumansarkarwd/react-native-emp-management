@@ -1,28 +1,37 @@
 import React from 'react';
-import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
-import {Card, Title, Paragraph, Button} from 'react-native-paper';
-import IngredientsBadges from './IngredientsBadges';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import {Card, Paragraph} from 'react-native-paper';
+import {Actions} from 'react-native-router-flux';
 
 export default props => {
   let {cocktail} = props;
 
   return (
     <View>
-      <Card style={styles.cardStyle} ele>
-        <Card.Title title={cocktail.strDrink} subtitle={cocktail.strCategory} />
-        <Card.Cover source={{uri: cocktail.strDrinkThumb}} />
-        <Card.Content>
-          <ScrollView
-            style={styles.badgeContainer}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}>
-            <IngredientsBadges cocktail={cocktail} />
-          </ScrollView>
-          <Paragraph style={{marginTop: 15}}>
-            {cocktail.strInstructions}
-          </Paragraph>
-        </Card.Content>
-      </Card>
+      <TouchableWithoutFeedback onPress={() => Actions.cocktail({cocktail})}>
+        <Card style={styles.cardStyle} ele>
+          <Card.Title
+            title={cocktail.strDrink}
+            subtitle={cocktail.strCategory}
+          />
+          <Card.Cover source={{uri: cocktail.strDrinkThumb}} />
+          <Card.Content>
+            <ScrollView
+              style={styles.badgeContainer}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            />
+            <Paragraph style={{marginTop: 15}}>
+              {cocktail.strInstructions}
+            </Paragraph>
+          </Card.Content>
+        </Card>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
